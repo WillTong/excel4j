@@ -5,29 +5,38 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 
 import java.util.Date;
 
 /**
- * Created by will on 17-5-31.
+ * @author will
  */
 public class DateResolver implements DefaultResolver {
 
     @Override
-    public void convertCell(Cell cell, Object value, HSSFCell hssfCell) {
-//        HSSFCellStyle cellStyle = workbook.createCellStyle();
-//        HSSFDataFormat format = workbook.createDataFormat();
-//        cellStyle.setDataFormat(format.getFormat(cell.dateFormat()));
-//        hssfCell.setCellStyle(cellStyle);
-//        hssfCell.setCellValue((Date) value);
+    public void convertCell(Cell cell, Object value, XSSFCell xssfCell, ExcelVars excelVars) {
+        if(excelVars.getStyleMap().containsKey(cell.dateFormat())){
+            xssfCell.setCellStyle(excelVars.getStyleMap().get(cell.dateFormat()));
+            xssfCell.setCellValue((Date) value);
+        }else{
+            XSSFCellStyle cellStyle = excelVars.getWorkbook().createCellStyle();
+            XSSFDataFormat format = excelVars.getWorkbook().createDataFormat();
+            cellStyle.setDataFormat(format.getFormat(cell.dateFormat()));
+            excelVars.getStyleMap().put(cell.dateFormat(),cellStyle);
+            xssfCell.setCellStyle(cellStyle);
+            xssfCell.setCellValue((Date) value);
+        }
     }
 
     @Override
-    public Integer convertValue(Cell cell, HSSFCell hssfCell) {
-        if (hssfCell.getCellTypeEnum() == CellType.STRING){
-            return Integer.parseInt(hssfCell.getStringCellValue());
-        }else if(hssfCell.getCellTypeEnum() == CellType.NUMERIC){
-            return (int)hssfCell.getNumericCellValue();
+    public Date convertValue(Cell cell,XSSFCell xssfCell, ExcelVars excelVars) {
+        if (xssfCell.getCellTypeEnum() == CellType.STRING){
+            return null;
+        }else if(xssfCell.getCellTypeEnum() == CellType.NUMERIC){
+            return xssfCell.getDateCellValue();
         }else{
             return null;
         }

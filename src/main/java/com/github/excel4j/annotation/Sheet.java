@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * excel的sheet的注释.
+ * excel的sheet的注解.
  * @author will
  */
 @Retention(RetentionPolicy.RUNTIME)

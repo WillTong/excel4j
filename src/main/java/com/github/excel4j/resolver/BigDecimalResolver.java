@@ -1,26 +1,26 @@
 package com.github.excel4j.resolver;
 
 import com.github.excel4j.annotation.Cell;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+
+import java.math.BigDecimal;
 
 /**
  * @author will
  */
-public class IntegerResolver implements DefaultResolver {
-
+public class BigDecimalResolver implements DefaultResolver {
     @Override
     public void convertCell(Cell cell, Object value, XSSFCell xssfCell, ExcelVars excelVars) {
-        xssfCell.setCellValue((Integer) value);
+        xssfCell.setCellValue(((BigDecimal) value).doubleValue());
     }
 
     @Override
-    public Integer convertValue(Cell cell, XSSFCell xssfCell,ExcelVars excelVars) {
+    public BigDecimal convertValue(Cell cell, XSSFCell xssfCell, ExcelVars excelVars) {
         if (xssfCell.getCellTypeEnum() == CellType.STRING){
-            return Integer.parseInt(xssfCell.getStringCellValue());
+            return new BigDecimal(xssfCell.getStringCellValue());
         }else if(xssfCell.getCellTypeEnum() == CellType.NUMERIC){
-            return (int)xssfCell.getNumericCellValue();
+            return new BigDecimal(xssfCell.getNumericCellValue());
         }else{
             return null;
         }
@@ -28,6 +28,6 @@ public class IntegerResolver implements DefaultResolver {
 
     @Override
     public boolean support(Class<?> clazz) {
-        return clazz==Integer.class||clazz==int.class;
+        return clazz==BigDecimal.class;
     }
 }
