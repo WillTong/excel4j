@@ -19,8 +19,4 @@ public class Excel4j {
     public static ReadOperations opsRead(byte[] data) throws IOException{
         return new ReadOperations(new XSSFWorkbook(new ByteArrayInputStream(data)));
     }
-
-
-
-
 }
