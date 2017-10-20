@@ -4,34 +4,34 @@
 [![Dependency Status](https://img.shields.io/versioneye/d/WillTong/excel4j.svg)](https://img.shields.io/versioneye/d/WillTong/mybatis-helper.svg)
 [![License](https://img.shields.io/github/license/WillTong/excel4j.svg)](LICENSE)
 
-excel导入导出的工具类，可以轻松将excel和list互转。底层使用poi。
+A Java library for reading and writing Microsoft Office Excel file.Thanks to POI.
 
-## 使用说明
-- 定义一个实体类，用来存储数据。
+## Getting started
+- Define an entity 
 ```java
 @Excel
-@Sheet("例子")
+@Sheet("example")
 public class Example {
-    @Cell("测试字符串")
+    @Cell("testing string")
     private String paramStr;
-    @Cell("测试数字")
+    @Cell("testing number")
     private Integer paramInt;
-    @Cell(value="测试日期",dateFormat="yyyy-MM-dd")
+    @Cell(value="testing date",dateFormat="yyyy-MM-dd")
     private Date date;
 }
 ```
-- 导出
+- list to xls
 ```java
 public class Export {
     public void export(){
         List<Example> list=new ArrayList();
-        FileOutputStream fout = new FileOutputStream("E:/测试文件.xls");
+        FileOutputStream fout = new FileOutputStream("/test.xls");
         fout.write(Excel4j.opsWrite().fromList(list));
         fout.close();
     }
 }
 ```
-- 导入
+- xls to list
 ```java
 public class Export {
     public void export(){
