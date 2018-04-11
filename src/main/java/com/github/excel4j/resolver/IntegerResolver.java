@@ -21,7 +21,9 @@ public class IntegerResolver implements DefaultResolver {
             return Integer.parseInt(xssfCell.getStringCellValue());
         }else if(xssfCell.getCellTypeEnum() == CellType.NUMERIC){
             return (int)xssfCell.getNumericCellValue();
-        }else{
+        }else if(xssfCell.getCellTypeEnum() == CellType.FORMULA){
+            return (int)xssfCell.getNumericCellValue();
+        } else{
             return null;
         }
     }

@@ -1,6 +1,7 @@
 package com.github.excel4j.resolver;
 
 import com.github.excel4j.annotation.Cell;
+import java.math.BigDecimal;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 
@@ -20,6 +21,8 @@ public class StringResolver implements DefaultResolver {
             return xssfCell.getStringCellValue();
         }else if(xssfCell.getCellTypeEnum() == CellType.NUMERIC){
             return String.valueOf(xssfCell.getNumericCellValue());
+        }else if(xssfCell.getCellTypeEnum() == CellType.FORMULA){
+            return xssfCell.getStringCellValue();
         }else{
             return null;
         }

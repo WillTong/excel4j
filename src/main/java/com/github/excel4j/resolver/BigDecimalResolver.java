@@ -21,7 +21,9 @@ public class BigDecimalResolver implements DefaultResolver {
             return new BigDecimal(xssfCell.getStringCellValue());
         }else if(xssfCell.getCellTypeEnum() == CellType.NUMERIC){
             return new BigDecimal(xssfCell.getNumericCellValue());
-        }else{
+        }else if(xssfCell.getCellTypeEnum() == CellType.FORMULA){
+            return new BigDecimal(xssfCell.getNumericCellValue());
+        } else{
             return null;
         }
     }
