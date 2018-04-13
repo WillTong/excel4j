@@ -4,7 +4,7 @@
 [![Dependency Status](https://img.shields.io/versioneye/d/WillTong/excel4j.svg)](https://img.shields.io/versioneye/d/WillTong/mybatis-helper.svg)
 [![License](https://img.shields.io/github/license/WillTong/excel4j.svg)](LICENSE)
 
-A Java library for reading and writing Microsoft Office Excel file.Thanks to POI.
+A java library for reading and writing microsoft office excel file.Thanks to POI.
 
 ## Getting started
 - Define an entity 
